@@ -1,6 +1,8 @@
 const express = require('express')
 const app = express()
+var cors = require('cors')
 app.use(express.json()) // Untuk Mengambil Data dari Request
+app.use(cors())
 
 const PORT = 5000
 

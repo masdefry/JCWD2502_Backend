@@ -8,6 +8,6 @@ const {usersController} = require('./../controllers') // Akan otomatis membaca i
 const {apiKey} = require('./../middleware/apiKey')
 
 Router.get('/', apiKey, usersController.getUsers)
-Router.post('/', apiKey, usersController.postUsers)
+Router.post('/register', apiKey, usersController.register)
 
 module.exports = Router
