@@ -9,8 +9,9 @@ app.get('/', (req, res) => {
 })
 
 // Import Routers
-const {usersRouter} = require('./routers')
+const {usersRouter, moviesRouter} = require('./routers')
 app.use('/users', usersRouter)
+app.use('/movies', moviesRouter)
 
 app.listen(PORT, () =>  console.log(`API Running on Port ${PORT}`))
 

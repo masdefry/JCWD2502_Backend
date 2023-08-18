@@ -1,8 +1,8 @@
 const apiKey = (req, res, next) => {
-    const {apiKey} = req.body
+    const {apikey} = req.headers
 
-    if(!apiKey) return res.send('Api Key Not Found!')
-    if(apiKey !== 'abc12345') return res.send('Api Key Error!')
+    if(!apikey) return res.send('Api Key Not Found!')
+    if(apikey !== 'abc12345') return res.send('Api Key Error!')
 
     next()
 }
