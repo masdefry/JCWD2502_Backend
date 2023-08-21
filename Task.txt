@@ -1,0 +1,9 @@
+Buatlah REST API yang berisikan 4 item end point, dimana masing-masing
+end point menjalankan request handler sebagai berikut: 
+
+1. Tampilkan informasi data penumpang sesuai dengan pencarian user 
+   (user dapat mencari informasi berdasarkan nama penumpangnya)
+2. Tampilkan informasi total penumpang yang selamat
+3. Tampilkan informasi total penumpang pria dan total penumpang wanita yang selamat
+4. Tampilkan informasi list penumpang yang selamat dan berada di class
+   yang sesuai dengan pencarian user
