@@ -5,7 +5,7 @@ app.use(express.json()) // Body Parser: Mengambil data yang dikirimkan oleh clie
 const PORT = 5004
 
 app.get('/', (req, res) => {
-    res.status(201).send('<h1>Welcome to JCWD-2302 API</h1>')
+    res.status(201).send('<h1>Welcome to JCWD-2502 API</h1>')
 })
 
 // Import Router
