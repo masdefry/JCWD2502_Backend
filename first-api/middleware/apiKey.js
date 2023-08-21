@@ -1,4 +1,5 @@
 const apiKey = (req, res, next) => {
+    console.log(req.headers)
     const {apikey} = req.headers
     console.log(apikey)
 

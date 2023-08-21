@@ -21,12 +21,12 @@ export default function FormRegister(){
 
       const response = await axios.post('http://localhost:5000/users/register', inputs, {
         headers: {
-          apikey: 'abc12345'
+          'X-RapidAPI-Key': process.env.REACT_APP_API_KEY
         }
       })
 
-      if(!response.data.isError) return toast.success(response.data.message)
-      if(response.data.isError) return toast.error(response.data.message)
+      if(!response.data.isError) return toast.error(response.data.message)
+      if(response.data.isError) return toast.success(response.data.message)
 
     } catch (error) {
       console.log(error)
