@@ -16,5 +16,19 @@ module.exports = {
         } catch (error) {
             
         }
+    },
+
+    findPassenger: async(req, res) => {
+        try {
+            const {name, pclass} = req.query 
+            console.log(name)
+            const findOne = await query(`SELECT * FROM passengers WHERE Name LIKE ?`, [`%${name}%`]) // 1
+            await query(`SELECT COUNT(*) FROM passengers WHERE survived = 1`) // 2
+            const findMaleFemale = await query('SELECT Sex, COUNT(*) as Total FROM passengers WHERE survived = 1 GROUP BY sex;') // 2
+            const findClass = await query(`SELECT * FROM passengers WHERE Survived = 1 AND PClass = ?`, [pclass]) // 3
+            console.log(findClass)
+        } catch (error) {
+            console.log(error)
+        }
     }
 }   

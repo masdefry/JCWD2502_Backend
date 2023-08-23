@@ -5,5 +5,6 @@ const Router = express.Router()
 const {titanicController} = require('../controllers')
 
 Router.get('/', titanicController.findPassengers)
+Router.get('/name', titanicController.findPassenger)
 
 module.exports = Router
