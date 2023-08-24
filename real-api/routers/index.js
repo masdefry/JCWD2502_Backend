@@ -1,5 +1,7 @@
-const titanicRouter = require('./titanicRouter');
+const usersRouter = require('./usersRouter');
+const productsRouter = require('./productsRouter');
 
 module.exports = {
-    titanicRouter
+    usersRouter,
+    productsRouter
 }
