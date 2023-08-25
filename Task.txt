@@ -1,8 +1,0 @@
-Buatlah REST API untuk setiap fitur yang ada di aplikasi Erigo.
-
-1. Register
-2. Login
-3. Product List 
-4. Filter Products
-5. Detail Product
-6. Cart
