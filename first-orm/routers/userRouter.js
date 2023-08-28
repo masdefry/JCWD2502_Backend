@@ -7,6 +7,6 @@ const {userController} = require('../controllers')
 Router.get('/', userController.findUsers)
 Router.post('/', userController.createUser)
 Router.patch('/:addressId', userController.updateAddress)
-Router.delete('/:userId', userController.updateAddress)
+Router.delete('/:userId', userController.deleteAccount)
 
 module.exports = Router
