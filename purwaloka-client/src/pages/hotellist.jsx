@@ -1,7 +1,30 @@
 import {VscDebugStackframeDot} from 'react-icons/vsc';
 import {HiOutlineLocationMarker, HiStar} from 'react-icons/hi';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 export default function HotelList(){
+    
+    const location = useLocation().search
+
+    useEffect(() => {
+        searchHotel()
+    }, [])
+
+    const searchHotel = async() => {
+        try {
+            console.log('RUN')
+        const city = new URLSearchParams(location).get("city")
+        const total_guest = new URLSearchParams(location).get("total_guest")
+        const check_in = new URLSearchParams(location).get("check_in")
+        const check_out = new URLSearchParams(location).get("check_out")
+            const findHotel = await axios.get(`http://localhost:5000/hotel?city=${city}&total_guest=${total_guest}`)
+            console.log(findHotel)
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return(
         <>
             {/* Banner Section */}

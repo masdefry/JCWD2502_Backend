@@ -20,10 +20,10 @@ module.exports = {
                         }, 
                         {
                             model: db.location, 
-                            attributes: ['city']
+                            attributes: ['city'],
+                            where: {city: city}, 
                         }
                     ],
-                    where: {locations_id: city}, 
                     group: ['hotel.id']
                 }
             )
@@ -34,7 +34,11 @@ module.exports = {
                 data: findHotels
             })
         } catch (error) {
-            console.log(error)
+            res.status(500).send({
+                isError: true, 
+                message: error.message, 
+                data: null
+            })
         }
     }
 }
