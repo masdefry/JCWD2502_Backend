@@ -2,6 +2,8 @@ const db = require('./../models');
 const {sequelize} = require('./../models')
 const {createJWT} = require('./../lib/jwt');
 const transporter = require('../helper/transporter')
+const fs = require('fs').promises;
+const handlebars = require('handlebars')
 
 module.exports = {
     register: async(req, res, next) => {
@@ -9,12 +11,16 @@ module.exports = {
             const {username, email, password} = req.body
 
             const createUser = await db.users.create({username, email, password})
+
+            const readTemplate = await fs.readFile('./public/template.html', 'utf-8')
+            const compiledTemplate = await handlebars.compile(readTemplate)
+            const newTemplate = compiledTemplate({username, email})
             
             await transporter.sendMail({
                 from: 'Purwaloka', 
                 to: 'defryan@purwadhika.com', 
                 subject: 'Register Success!', 
-                html: '<h1>Register Success</h1>'
+                html: newTemplate
             })
 
             res.status(200).send({
