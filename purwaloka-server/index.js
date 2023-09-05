@@ -11,8 +11,8 @@ app.get('/', (req, res) => {
 })
 
 // Import Router
-const {hotelRouter} = require('./routers')
-// app.use('/user', userRouter)
+const {hotelRouter, userRouter} = require('./routers')
+app.use('/user', userRouter)
 app.use('/hotel', hotelRouter)
 
 app.listen(PORT, () =>  console.log(`API Running on Port ${PORT}`))

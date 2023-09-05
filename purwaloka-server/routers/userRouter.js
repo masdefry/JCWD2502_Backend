@@ -4,6 +4,7 @@ const Router = express.Router()
 // Import All Controller
 const {userController} = require('../controllers')
 
-Router.get()
+Router.post('/', userController.register)
+Router.get('/', userController.login)
 
 module.exports = Router

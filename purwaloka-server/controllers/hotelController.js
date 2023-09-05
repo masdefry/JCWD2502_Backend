@@ -6,7 +6,7 @@ module.exports = {
     search: async(req, res) => {
         try {
             const {city, total_guest, check_in, check_out} = req.query
-            
+            console.log(check_in, check_out)
             const findHotels = await db.hotel.findAll(
                 {   
                     attributes: ['id', 'name', 'locations_id'], 
@@ -49,7 +49,6 @@ module.exports = {
         
             sumRoom.forEach((value, index) => {
                 findHotels[index].dataValues.totalRoom = value.hotel_rooms[0].dataValues.totalRoom
-                console.log('>>>>>>')
             })
                 
             const findReservations = await db.reservation.findAll({
@@ -74,9 +73,6 @@ module.exports = {
 
             findHotels.forEach((value, index) => {
                 findReservations.forEach((val, idx) => {
-                    console.log('Id Hotel')
-                    console.log(value.dataValues.id)
-                    console.log(val.dataValues.hotel_room.hotels_id)
                     if(value.dataValues.id === val.dataValues.hotel_room.hotels_id){
                         value.dataValues.totalRoom-= val.dataValues.total_room
                     }

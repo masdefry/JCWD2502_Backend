@@ -2,6 +2,7 @@ import {TbHeartHandshake} from 'react-icons/tb';
 import {IoMdArrowDropdown} from 'react-icons/io';
 
 import Logo from './../supports/logo.png'
+import { Link } from 'react-router-dom';
 
 export default function Navbar(){
     return(
@@ -12,9 +13,11 @@ export default function Navbar(){
             <div className="bg-slate-50 grid grid-cols-2 px-32 py-2">
                 <div className='flex items-center'>
                     <img src={Logo} style={{ width: '30px' }} />
-                    <h1 className="text-gray-700 text-3xl font-semibold">
-                        purwaloka
-                    </h1>
+                    <Link to='/'>
+                        <h1 className="text-gray-700 text-3xl font-semibold">
+                            purwaloka
+                        </h1>
+                    </Link>
                 </div>
                 <div>
                     <div className="flex justify-end items-center h-full">
@@ -27,9 +30,11 @@ export default function Navbar(){
                         <span className="text-gray-700 font-semibold mr-5">
                             Cek Order
                         </span>
-                        <button className="bg-sky-500 text-slate-50 font-semibold rounded-md px-4 py-1.5">
-                            Register
-                        </button>
+                        <Link to='/register'>
+                            <button className="bg-sky-500 text-slate-50 font-semibold rounded-md px-4 py-1.5">
+                                Register
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
