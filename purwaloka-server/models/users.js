@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     password: DataTypes.STRING,
+    is_verified: {
+      type: DataTypes.STRING, 
+      defaultValue: 'Unverified'
+    },
     createdAt: {
       type: DataTypes.DATE, 
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
