@@ -9,15 +9,17 @@ module.exports = {
     register: async(req, res, next) => {
         try {
             const {username, email, password} = req.body
+            
+            const code = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
+            const createUser = await db.users.create({username, email, password, code})
 
-            const createUser = await db.users.create({username, email, password})
+            const tkn = await createJWT({id: createUser.dataValues.id}, '1h')
+            const tkn1 = await createJWT({id: createUser.dataValues.id}, '365d')
 
-            const tkn = await createJWT({id: createUser.dataValues.id})
-            console.log(tkn)
 
             const readTemplate = await fs.readFile('./public/template.html', 'utf-8')
             const compiledTemplate = await handlebars.compile(readTemplate)
-            const newTemplate = compiledTemplate({username, email, tkn})
+            const newTemplate = compiledTemplate({username, email, tkn, code, tkn1})
             
             await transporter.sendMail({
                 from: 'Purwaloka', 
@@ -61,6 +63,17 @@ module.exports = {
     verifyUser: async(req, res) => {
         try {
             const {id} = req.dataToken
+            const {code} = req.body 
+
+            if(code){
+                console.log(id, code)
+                const checkCode = await db.users.findOne({
+                    where: {
+                        id, code
+                    }
+                })
+                if(!checkCode) throw {message: 'Code Not Valid!'}
+            }
 
             await db.users.update(
                 {

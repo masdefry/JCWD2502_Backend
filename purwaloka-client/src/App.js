@@ -11,6 +11,7 @@ import BusList from './pages/buslist';
 import Register from './pages/register';
 import Login from './pages/login';
 import Verification from './pages/verification';
+import Code from './pages/code';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/hotel/detail' element={<HotelDetail />} />
         <Route path='/bus/search' element={<BusList />} />
         <Route path='/verification/:id' element={<Verification />} />
+        <Route path='/code/:id' element={<Code />} />
       </Routes>
     </>
   );

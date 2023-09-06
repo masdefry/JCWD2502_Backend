@@ -26,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING, 
       defaultValue: 'Unverified'
     },
+    code: {
+      type: DataTypes.STRING
+    },
     createdAt: {
       type: DataTypes.DATE, 
       defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
