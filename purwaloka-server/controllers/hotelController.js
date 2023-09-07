@@ -96,9 +96,17 @@ module.exports = {
 
     create: async(req, res) => {
         try {
+            const data = JSON.parse(req.body.data)
+            const createdHotel = await db.hotel.create({...data})
+
+            const dataImage = req.files.images.map(value => {
+                return {url: value.path, hotels_id: createdHotel.id}
+            })
             
+            await db.hotel_image.bulkCreate(dataImage)
+
         } catch (error) {
-            
+         console.log(error)   
         }
     }
 }

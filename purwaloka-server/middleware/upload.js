@@ -13,6 +13,7 @@ const upload = async(req, res, next) => {
                 if(value.size > 1000000) throw {message: `${value.originalname} is Too Large!`, files: req.files}
             })
 
+            next()
         } catch (error) {
             deleteFiles(error.files)
             next(error)
