@@ -15,4 +15,16 @@ const {hotelRouter, userRouter} = require('./routers')
 app.use('/user', userRouter)
 app.use('/hotel', hotelRouter)
 
+// Centralized Error
+app.use((err, req, res, next) => {
+    const statusCode = err.status || 500
+    const statusMessage = err.message || 'Error'
+
+    return res.status(statusCode).send({
+        isError: true, 
+        message: statusMessage, 
+        data: null
+    })
+})
+
 app.listen(PORT, () =>  console.log(`API Running on Port ${PORT}`))

@@ -9,6 +9,8 @@ module.exports = {
     register: async(req, res, next) => {
         try {
             const {username, email, password} = req.body
+
+            if(!username || !email || !password) throw {message: 'Data Not Completed!'}
             
             const code = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
             const createUser = await db.users.create({username, email, password, code})
@@ -34,7 +36,7 @@ module.exports = {
                 data: null
             })
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     },
 
@@ -66,7 +68,6 @@ module.exports = {
             const {code} = req.body 
 
             if(code){
-                console.log(id, code)
                 const checkCode = await db.users.findOne({
                     where: {
                         id, code
