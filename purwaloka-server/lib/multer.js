@@ -10,8 +10,6 @@ const storage = multer.diskStorage({
         await fs.promises.mkdir(defaultPath, {recursive: true})
       }
 
-      // console.log(file)
-
       cb(null, `${defaultPath}`)
     },
     filename: function (req, file, cb) {

@@ -6,12 +6,11 @@ export default function Verification(){
 
     const [isVerified, setIsVerified] = useState(false)
     
-    const {id} = useParams()
-    console.log(id)
+    const {tkn} = useParams()
 
     const onVerify = async() => {
         try {
-            const verify= await axios.patch('http://localhost:5000/user', {token: id})
+            const verify= await axios.patch('http://localhost:5000/user', {token: tkn})
             
             if(!verify.data.isError) setIsVerified(true)
         } catch (error) {
@@ -24,12 +23,16 @@ export default function Verification(){
     }, [])
     
     return(
-        <div>
+        <div className='flex justify-center my-10'>
             {
                 isVerified?
-                    'Verified'
+                    <h1 className='text-4xl font-semibold'>
+                        You're Verified!
+                    </h1>
                 :
-                    'Unverified'
+                    <h1 className='text-4xl font-semibold'>
+                        You're Unverified!
+                    </h1>
             }
         </div>
     )

@@ -12,6 +12,7 @@ import Register from './pages/register';
 import Login from './pages/login';
 import Verification from './pages/verification';
 import Code from './pages/code';
+import Dashboard from './pages/admin/dashboard';
 
 function App() {
   return (
@@ -24,8 +25,9 @@ function App() {
         <Route path='/hotel/search' element={<HotelList />} />
         <Route path='/hotel/detail' element={<HotelDetail />} />
         <Route path='/bus/search' element={<BusList />} />
-        <Route path='/verification/:id' element={<Verification />} />
-        <Route path='/code/:id' element={<Code />} />
+        <Route path='/verification/:tkn' element={<Verification />} />
+        <Route path='/code/:tkn' element={<Code />} />
+        <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
     </>
   );
