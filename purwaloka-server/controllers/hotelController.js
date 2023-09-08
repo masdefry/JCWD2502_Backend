@@ -119,5 +119,35 @@ module.exports = {
             await t.rollback() 
             next(error)
         }
+    },
+
+    update: async(req, res, next) => {
+        try {
+            // 1. Ambil id image
+            const {idImage} = req.params
+
+            // 2. Ambil path image lama
+            const findImage = await db.hotel_image.findOne({
+                where: {
+                    id: idImage 
+                }
+            })
+
+            // 3. Update new path on table
+            await db.hotel_image.update({url: req.files.images[0].path}, {where: {id: idImage}})
+
+            // 4. Delete image lama
+            deleteFiles({images: [{path: findImage.dataValues.url}]})
+
+            // 5. Kirim response
+            res.status(201).send({
+                isError: false, 
+                message: 'Update Image Success!',
+                data: null
+            })
+        } catch (error) {
+            deleteFiles(req.files)
+            next(error)
+        }
     }
 }
