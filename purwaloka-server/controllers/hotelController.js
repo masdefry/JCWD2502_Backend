@@ -105,7 +105,7 @@ module.exports = {
                 return {url: value.path, hotels_id: createdHotel.id}
             })
             
-            await db.hotel_image.bulkCreatesss(dataImage, {transaction: t})
+            await db.hotel_image.bulkCreate(dataImage, {transaction: t})
 
             await t.commit()
             res.status(201).send({
