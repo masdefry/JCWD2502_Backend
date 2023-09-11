@@ -4,6 +4,7 @@ const {createJWT} = require('./../lib/jwt');
 const transporter = require('../helper/transporter');
 const fs = require('fs').promises;
 const handlebars = require('handlebars');
+const {hash, match} = require('./../helper/hashing');
 
 module.exports = {
     register: async(req, res, next) => {
@@ -17,11 +18,12 @@ module.exports = {
             if(checkUser.length > 0) throw {message: 'Email or Username Already Register'}
             
             const code = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
-            const createUser = await db.users.create({username, email, password, code})
+            const hashPassword = await hash(password)
+            
+            const createUser = await db.users.create({username, email, password: hashPassword, code})
 
             const tkn = await createJWT({id: createUser.dataValues.id}, '1h')
             const tkn1 = await createJWT({id: createUser.dataValues.id}, '365d')
-
 
             const readTemplate = await fs.readFile('./public/template.html', 'utf-8')
             const compiledTemplate = await handlebars.compile(readTemplate)
@@ -44,16 +46,20 @@ module.exports = {
         }
     },
 
-    login: async(req, res) => {
+    login: async(req, res, next) => {
         try {
             const {username, password} = req.query
 
             const findUser = await db.users.findOne({
                 where: {
-                    username, password
+                    username
                 }
             })
 
+            if(!findUser) throw {message: 'User Not Found!'}
+            const hashMatch = await match(password, findUser.dataValues.password)
+            
+            if(!hashMatch) throw {message: 'Wrong Password!'}
             const token = await createJWT({id: findUser.dataValues.id})
             
             res.status(200).send({
@@ -62,7 +68,7 @@ module.exports = {
                 data: token
             })
         } catch (error) {
-            
+            console.log(error)
         }
     },
 
@@ -95,7 +101,7 @@ module.exports = {
                 data: null
             })
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     }
 }
