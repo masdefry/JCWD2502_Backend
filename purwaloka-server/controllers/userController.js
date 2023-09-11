@@ -11,6 +11,10 @@ module.exports = {
             const {username, email, password} = req.body
 
             if(!username || !email || !password) throw {message: 'Data Not Completed!'}
+
+            const checkUser = await db.users.findAll({where: {email, username}})
+
+            if(checkUser.length > 0) throw {message: 'Email or Username Already Register'}
             
             const code = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
             const createUser = await db.users.create({username, email, password, code})
