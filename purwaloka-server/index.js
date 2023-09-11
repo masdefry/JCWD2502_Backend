@@ -3,6 +3,7 @@ const cors = require('cors')
 const app = express()
 app.use(cors())
 app.use(express.json()) // Body Parser: Mengambil data yang dikirimkan oleh client melalui body
+app.use(express.static('public'))
 
 const PORT = 5000
 

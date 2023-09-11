@@ -1,4 +1,5 @@
 import axios from "axios"
+import { useEffect } from "react"
 import { useState } from "react"
 
 export default function Dashboard(){
@@ -11,6 +12,7 @@ export default function Dashboard(){
         description: ''
     })
     const [images, setImages] = useState([])
+    const [hotels, setHotels] = useState([])
 
     const onSetInput = (event) => {
         var tempInput = {...input}
@@ -47,6 +49,20 @@ export default function Dashboard(){
         }
     }
 
+    const onFindHotels = async() => {
+        try {
+            const findHotels = await axios.get('http://localhost:5000/hotel/all')
+            console.log(findHotels.data.data)
+            setHotels(findHotels.data.data)
+        } catch (error) {
+            
+        }
+    }
+
+    useEffect(() => {
+        onFindHotels()
+    }, [])
+
     return(
         <div className='px-60 py-20'>
             <div className="py-2">
@@ -75,6 +91,37 @@ export default function Dashboard(){
             <button onClick={onSubmit} className="bg-orange-500 text-slate-50 font-semibold rounded-md w-full px-10 py-2 mt-5 mb-0">
                 Save
             </button>
+
+            {
+                hotels.map((value, index) => {
+                    return(
+                        <div className='grid grid-cols-4 bg-white rounded-md drop-shadow-xl my-10'>
+                    <div>
+                        <img src={`http://localhost:5000/${value.hotel_images[0].url.substring(6)}`} className='rounded-tl-md rounded-bl-md' style={{ minHeight: '190px', objectFit: 'cover' }} />
+                    </div>
+                    <div className='col-span-2 flex flex-col justify-between px-5 py-3'>
+                    <div>
+                        <div>
+                            <h1 className='text-lg text-gray-900 font-semibold'>
+                                {value.name}
+                            </h1>
+                        </div>
+                        <div className='py-2'>
+                            <span className='bg-sky-500 text-white px-2 py-1 rounded-full'>
+                                Hotel
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <span className='flex items-center text-gray-500'>
+                            Total Rooms: 10
+                        </span>
+                    </div>
+                </div>
+            </div>
+                    )
+                })
+            }
         </div>
     )
 }

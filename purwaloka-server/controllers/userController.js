@@ -1,9 +1,9 @@
 const db = require('./../models');
-const {sequelize} = require('./../models')
+const {sequelize} = require('./../models');
 const {createJWT} = require('./../lib/jwt');
-const transporter = require('../helper/transporter')
+const transporter = require('../helper/transporter');
 const fs = require('fs').promises;
-const handlebars = require('handlebars')
+const handlebars = require('handlebars');
 
 module.exports = {
     register: async(req, res, next) => {

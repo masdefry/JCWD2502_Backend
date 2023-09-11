@@ -80,6 +80,8 @@ module.exports = {
                     
                 })
             })
+            console.log('>>>')
+            console.log(findHotels)
 
             res.status(200).send({
                 isError: false, 
@@ -87,6 +89,7 @@ module.exports = {
                 data: findHotels
             })
         } catch (error) {
+            console.log(error)
             res.status(500).send({
                 isError: true, 
                 message: error.message, 
@@ -148,6 +151,27 @@ module.exports = {
         } catch (error) {
             deleteFiles(req.files)
             next(error)
+        }
+    },
+
+    findHotel: async(req, res) => {
+        try {
+            const findHotels = await db.hotel.findAll({
+                include: [
+                    {
+                        model: db.hotel_image,
+                        attributes: ['url']
+                    }
+                ]
+            })
+
+            res.status(200).send({
+                isError: false, 
+                message: 'Find Hotel Success!', 
+                data: findHotels
+            })
+        } catch (error) {
+            
         }
     }
 }
