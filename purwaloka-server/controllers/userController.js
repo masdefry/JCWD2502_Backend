@@ -6,6 +6,9 @@ const fs = require('fs').promises;
 const handlebars = require('handlebars');
 const {hash, match} = require('./../helper/hashing');
 
+// Import Services
+const {findUser} = require('./../services/userService');
+
 module.exports = {
     register: async(req, res, next) => {
         try {
@@ -50,11 +53,7 @@ module.exports = {
         try {
             const {username, password} = req.query
 
-            const findUser = await db.users.findOne({
-                where: {
-                    username
-                }
-            })
+            const findUser = await findUser(username)
 
             if(!findUser) throw {message: 'User Not Found!'}
             const hashMatch = await match(password, findUser.dataValues.password)
@@ -68,7 +67,7 @@ module.exports = {
                 data: token
             })
         } catch (error) {
-            console.log(error)
+            next(error)
         }
     },
 

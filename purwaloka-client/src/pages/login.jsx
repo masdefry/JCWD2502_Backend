@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Login(){
@@ -8,13 +8,19 @@ export default function Login(){
     const password = useRef()
     const navigate = useNavigate()
 
+    const [disabled, setDisabled] = useState(false)
+
     const onLogin = async() => {
         try {
-            const response = await axios.get(`http://localhost:5000/user?username=${username.current.value}&password=${password.current.value}`)
+            setDisabled(true)
+            const response = await axios.get(`${process.env.REACT_APP_URL}user?username=${username.current.value}&password=${password.current.value}`)
+
             localStorage.setItem('tkn', response.data.data)
             navigate('/')
         } catch (error) {
             console.log(error)
+        } finally {
+            setDisabled(false)
         }
     }
 
@@ -48,8 +54,13 @@ export default function Login(){
                             </Link>
                         </div>
                         <div className="flex justify-end pt-3">
-                            <button onClick={onLogin} className="bg-orange-500 text-slate-50 font-semibold rounded-md px-10 py-2">
-                                Login
+                            <button disabled={disabled} onClick={onLogin} className="bg-orange-500 text-slate-50 font-semibold rounded-md px-10 py-2">
+                                {
+                                    disabled?
+                                        'Loading...'
+                                    :
+                                        'Login'
+                                }
                             </button>
                         </div>
                     </div>
