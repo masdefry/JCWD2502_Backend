@@ -6,7 +6,9 @@ const {userController} = require('../controllers')
 
 const {verify} = require('./../lib/jwt')
 
-Router.post('/', userController.register)
+const {checkData} = require('./../helper/validator');
+
+Router.post('/', checkData, userController.register)
 Router.get('/', userController.login)
 Router.patch('/', verify, userController.verifyUser)
 

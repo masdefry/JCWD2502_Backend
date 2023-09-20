@@ -1,6 +1,8 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import { Instance } from "../api/instance";
 
 export default function Verification(){
 
@@ -10,7 +12,7 @@ export default function Verification(){
 
     const onVerify = async() => {
         try {
-            const verify= await axios.patch('http://localhost:5000/user', {token: tkn})
+            const verify= await Instance(tkn).patch('user')
             
             if(!verify.data.isError) setIsVerified(true)
         } catch (error) {

@@ -7,7 +7,7 @@ const handlebars = require('handlebars');
 const {hash, match} = require('./../helper/hashing');
 
 // Import Services
-const {findUser} = require('./../services/userService');
+const {findUsersss} = require('./../services/userService');
 
 module.exports = {
     register: async(req, res, next) => {
@@ -53,7 +53,7 @@ module.exports = {
         try {
             const {username, password} = req.query
 
-            const findUser = await findUser(username)
+            const findUser = await findUsersss(username)
 
             if(!findUser) throw {message: 'User Not Found!'}
             const hashMatch = await match(password, findUser.dataValues.password)

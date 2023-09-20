@@ -1,7 +1,7 @@
 const db = require('./../models');
 
 module.exports = {
-    findUser: async(username) => {
+    findUsersss: async(username) => {
         try {
             return await db.users.findOne({
                 where: {

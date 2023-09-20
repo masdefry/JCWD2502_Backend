@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Instance } from './../api/instance';
 
 export default function Login(){
 
@@ -13,8 +14,8 @@ export default function Login(){
     const onLogin = async() => {
         try {
             setDisabled(true)
-            const response = await axios.get(`${process.env.REACT_APP_URL}user?username=${username.current.value}&password=${password.current.value}`)
-
+            const response = await Instance().get(`user?username=${username.current.value}&password=${password.current.value}`)
+          
             localStorage.setItem('tkn', response.data.data)
             navigate('/')
         } catch (error) {

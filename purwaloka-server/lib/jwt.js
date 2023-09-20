@@ -13,9 +13,9 @@ module.exports = {
 
     verify: (req, res, next) => {
         try {
-            const {token} = req.body
-            const decodeData = jwt.verify(token, 'abc123')
-            req.dataToken = decodeData // {id: 12, ..., ...}
+            const {authorization} = req.headers
+            const decodeData = jwt.verify(authorization, 'abc123')
+            req.dataToken = decodeData
             next()
         } catch (error) {
             
